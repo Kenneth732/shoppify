@@ -1,0 +1,254 @@
+
+{% extends 'base.html' %}
+{% block content %}
+
+<section class="luxury-product-detail">
+    <!-- Product Gallery & Info Container -->
+    <div class="luxury-product-container">
+        <!-- Image Gallery -->
+        <div class="luxury-product-gallery">
+            <div class="luxury-main-image">
+                <img src="{{ product.image }}" alt="{{ product.name }}" id="mainImage">
+                <div class="luxury-image-badge">Premium</div>
+            </div>
+            
+            <div class="luxury-thumbnails">
+                {% for i in range(1, 5) %}
+                <div class="luxury-thumbnail {% if loop.first %}active{% endif %}" 
+                     data-image="{{ product.image }}">
+                    <img src="{{ product.image }}" alt="{{ product.name }} thumbnail {{ i }}">
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        
+        <!-- Product Info -->
+        <div class="luxury-product-info">
+            <div class="luxury-product-header">
+                <span class="luxury-collection-name">Signature Collection</span>
+                <h1 class="luxury-product-title">{{ product.name }}</h1>
+                <div class="luxury-price-container">
+                    <span class="luxury-current-price">${{ "%.2f"|format(product.price / 100) }}</span>
+                    {% if product.original_price %}
+                    <span class="luxury-original-price">${{ "%.2f"|format(product.original_price / 100) }}</span>
+                    {% endif %}
+                </div>
+            </div>
+            
+            <div class="luxury-product-description">
+                <p>{{ product.description|default("Experience unparalleled quality with our premium offering. Meticulously crafted with the finest materials and attention to detail, this piece embodies timeless elegance and exceptional craftsmanship.", true) }}</p>
+            </div>
+            
+            <div class="luxury-product-actions">
+                <div class="luxury-size-selector">
+                    <label>Size</label>
+                    <div class="luxury-size-options">
+                        {% for size in ['XS', 'S', 'M', 'L', 'XL'] %}
+                        <div class="luxury-size-option {% if loop.index == 3 %}selected{% endif %}">
+                            {{ size }}
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="luxury-color-selector">
+                    <label>Color</label>
+                    <div class="luxury-color-options">
+                        {% for color in ['#1a1a1a', '#555', '#999', '#d4d4d4'] %}
+                        <div class="luxury-color-option {% if loop.first %}selected{% endif %}" 
+                             style="background-color: {{ color }}"></div>
+                        {% endfor %}
+                    </div>
+                </div>
+                
+                <div class="luxury-quantity-selector">
+                    <label>Quantity</label>
+                    <div class="luxury-quantity-control">
+                        <button class="luxury-quantity-btn" id="decreaseQty">-</button>
+                        <span class="luxury-quantity-value">1</span>
+                        <button class="luxury-quantity-btn" id="increaseQty">+</button>
+                    </div>
+                </div>
+                <form action="{{ url_for('add_to_cart', product_id=product.id) }}" method="POST">
+                   <button class="luxury-add-to-cart-btn">
+                       <span>Add to Cart</span>
+                       <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                           <path d="M2.5 3.33334H3.00526C3.85578 3.33334 4.56986 3.97376 4.6621 4.81926L5.3379 11.0141C5.43014 11.8596 6.14422 12.5 6.99474 12.5H14.205C14.9669 12.5 15.6317 11.9834 15.82 11.2452L16.9699 6.73593C17.2387 5.68213 16.4425 4.65704 15.355 4.65704H5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                           <path d="M12.5 16.6667C12.5 17.1269 12.1269 17.5 11.6667 17.5C11.2064 17.5 10.8333 17.1269 10.8333 16.6667C10.8333 16.2064 11.2064 15.8333 11.6667 15.8333C12.1269 15.8333 12.5 16.2064 12.5 16.6667Z" stroke="currentColor" stroke-width="1.5"/>
+                           <path d="M7.5 16.6667C7.5 17.1269 7.12687 17.5 6.66666 17.5C6.20646 17.5 5.83333 17.1269 5.83333 16.6667C5.83333 16.2064 6.20646 15.8333 6.66666 15.8333C7.12687 15.8333 7.5 16.2064 7.5 16.6667Z" stroke="currentColor" stroke-width="1.5"/>
+                       </svg>
+                   </button>
+                </form>
+                
+                <div class="luxury-wishlist">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 17.5C10 17.5 2.5 12.5 2.5 7.5C2.5 4.5 5 2.5 7.5 2.5C9 2.5 10 3.5 10 3.5C10 3.5 11 2.5 12.5 2.5C15 2.5 17.5 4.5 17.5 7.5C17.5 12.5 10 17.5 10 17.5Z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span>Add to Wishlist</span>
+                </div>
+            </div>
+            
+            <div class="luxury-product-meta">
+                <div class="luxury-meta-item">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 10C12.7614 10 15 7.76142 15 5C15 2.23858 12.7614 0 10 0C7.23858 0 5 2.23858 5 5C5 7.76142 7.23858 10 10 10Z" stroke="currentColor" stroke-width="1.5"/>
+                        <path d="M10 12C5 12 0 14 0 19H20C20 14 15 12 10 12Z" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                    <span>Free Personalization</span>
+                </div>
+                <div class="luxury-meta-item">
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                        <path d="M10 0V20M20 10H0" stroke="currentColor" stroke-width="1.5"/>
+                    </svg>
+                    <span>Free Shipping & Returns</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Product Details Tabs -->
+    <div class="luxury-product-tabs">
+        <div class="luxury-tabs-header">
+            <button class="luxury-tab-btn active" data-tab="details">Product Details</button>
+            <button class="luxury-tab-btn" data-tab="materials">Materials & Care</button>
+            <button class="luxury-tab-btn" data-tab="shipping">Shipping & Returns</button>
+        </div>
+        
+        <div class="luxury-tabs-content">
+            <div class="luxury-tab-pane active" id="details">
+                <h3>Craftsmanship</h3>
+                <p>Each piece in our collection is meticulously crafted by skilled artisans with decades of experience. The attention to detail is evident in every stitch, seam, and finish.</p>
+                
+                <h3>Features</h3>
+                <ul>
+                    <li>Handcrafted with premium materials</li>
+                    <li>Reinforced stress points for durability</li>
+                    <li>Signature hardware with custom engraving</li>
+                    <li>Interior lining with hidden pockets</li>
+                    <li>Eco-friendly packaging included</li>
+                </ul>
+            </div>
+            
+            <div class="luxury-tab-pane" id="materials">
+                <h3>Materials</h3>
+                <p>Constructed from the finest imported materials, including:</p>
+                <ul>
+                    <li>100% Italian merino wool exterior</li>
+                    <li>Japanese technical fabric lining</li>
+                    <li>German-made precision hardware</li>
+                    <li>Vegetable-tanned leather accents</li>
+                </ul>
+                
+                <h3>Care Instructions</h3>
+                <p>To maintain the quality of your product:</p>
+                <ul>
+                    <li>Dry clean only</li>
+                    <li>Store in provided dust bag when not in use</li>
+                    <li>Avoid prolonged exposure to direct sunlight</li>
+                    <li>Use leather conditioner monthly</li>
+                </ul>
+            </div>
+            
+            <div class="luxury-tab-pane" id="shipping">
+                <h3>Shipping</h3>
+                <p>We offer worldwide express shipping with full tracking:</p>
+                <ul>
+                    <li>Free standard shipping on all orders</li>
+                    <li>Express shipping available at checkout</li>
+                    <li>Fully insured delivery</li>
+                    <li>Discreet packaging</li>
+                </ul>
+                
+                <h3>Returns</h3>
+                <p>Our satisfaction guarantee:</p>
+                <ul>
+                    <li>30-day return policy</li>
+                    <li>Free returns for all full-price items</li>
+                    <li>No restocking fees</li>
+                    <li>Dedicated concierge service for returns</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Related Products -->
+    <div class="luxury-related-products">
+        <div class="luxury-section-header">
+            <h2>You May Also Like</h2>
+            <a href="{{ url_for('collection') }}" class="luxury-view-all">View All</a>
+        </div>
+        
+        <div class="luxury-related-grid">
+            {% for i in range(4) %}
+            <div class="luxury-related-item">
+                <a href="{{ url_for('product_detail', product_id=1) }}">
+                    <img src="{{ product.image }}" alt="Related product">
+                    <div class="luxury-related-info">
+                        <h3>{{ product.name }} Variant</h3>
+                        <p>${{ "%.2f"|format(product.price / 100 + (i * 5000 / 100)) }}</p>
+                    </div>
+                </a>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</section>
+
+<script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Thumbnail image switcher
+        const thumbnails = document.querySelectorAll('.luxury-thumbnail');
+        const mainImage = document.getElementById('mainImage');
+        
+        thumbnails.forEach(thumb => {
+            thumb.addEventListener('click', function() {
+                // Remove active class from all thumbnails
+                thumbnails.forEach(t => t.classList.remove('active'));
+                // Add active class to clicked thumbnail
+                this.classList.add('active');
+                // Change main image
+                const newImage = this.getAttribute('data-image');
+                mainImage.src = newImage;
+            });
+        });
+        
+        // Quantity selector
+        const decreaseBtn = document.getElementById('decreaseQty');
+        const increaseBtn = document.getElementById('increaseQty');
+        const quantityValue = document.querySelector('.luxury-quantity-value');
+        
+        decreaseBtn.addEventListener('click', function() {
+            let current = parseInt(quantityValue.textContent);
+            if (current > 1) {
+                quantityValue.textContent = current - 1;
+            }
+        });
+        
+        increaseBtn.addEventListener('click', function() {
+            let current = parseInt(quantityValue.textContent);
+            quantityValue.textContent = current + 1;
+        });
+        
+        // Tab switching
+        const tabBtns = document.querySelectorAll('.luxury-tab-btn');
+        const tabPanes = document.querySelectorAll('.luxury-tab-pane');
+        
+        tabBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const tabId = this.getAttribute('data-tab');
+                
+                // Remove active class from all buttons and panes
+                tabBtns.forEach(b => b.classList.remove('active'));
+                tabPanes.forEach(p => p.classList.remove('active'));
+                
+                // Add active class to clicked button and corresponding pane
+                this.classList.add('active');
+                document.getElementById(tabId).classList.add('active');
+            });
+        });
+    });
+    </script>
+</script>
+
+{% endblock %}

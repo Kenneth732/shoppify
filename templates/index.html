@@ -1,0 +1,164 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+
+<!-- Ultra-Premium Luxury Hero Section -->
+<section class="luxury-hero">
+  <!-- Background elements -->
+  <div class="luxury-hero-bg">
+      <div class="bg-overlay"></div>
+      <div class="bg-texture"></div>
+  </div>
+  
+  <!-- Content container -->
+  <div class="luxury-hero-container">
+      <!-- Text content -->
+      <div class="luxury-hero-content">
+          <div class="luxury-tagline animate-fade-in">
+              <span class="decorative-line"></span>
+              <span class="tagline-text">Best Sellers Spotlight</span>
+          </div>
+          
+          <h1 class="luxury-heading animate-slide-up">
+              <span class="heading-line">New &</span>
+              <span class="heading-line">Noteworthy</span>
+          </h1>
+          
+          <div class="luxury-subheading animate-fade-in">
+              <p class="subheading-text">Discover Your Next Favorite</p>
+              <span class="decorative-line"></span>
+          </div>
+          
+          <div class="luxury-cta animate-fade-in-delay">
+              <button class="cta-button">
+                  <span>Explore Collection</span>
+                  <svg class="arrow-icon" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                      <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+              </button>
+          </div>
+      </div>
+      
+      <!-- Image container -->
+      <div class="luxury-hero-image-container">
+          <div class="image-wrapper">
+              <img class="luxury-hero-image" src="../static/images/blog-2.png" alt="Latest Arrivals">
+              <div class="image-overlay"></div>
+              <div class="image-frame"></div>
+          </div>
+      </div>
+  </div>
+  
+  <!-- Scroll indicator -->
+  <div class="scroll-indicator animate-bounce">
+      <svg width="24" height="48" viewBox="0 0 24 48" fill="none">
+          <path d="M12 1V30M12 30L18 24M12 30L6 24" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
+          <path d="M12 47V30" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-dasharray="1 4"/>
+      </svg>
+  </div>
+</section>
+      
+      
+      <div class="container">
+<!-- Ultra-Premium Collection Section -->
+<section class="luxury-collection">
+  <!-- Collection Header -->
+  <div class="luxury-collection-header">
+      <div class="luxury-header-content">
+          <div class="luxury-line-decoration"></div>
+          <h2 class="luxury-collection-title">Latest Collection</h2>
+          <p class="luxury-collection-subtitle">
+              Discover exquisite craftsmanship and timeless elegance in our curated selection of premium products.
+          </p>
+      </div>
+  </div>
+
+  <!-- Product Grid -->
+  <div class="luxury-product-grid">
+      {% for product in products %}
+      <div class="luxury-product-card">
+          <a href="{{ url_for('product_detail', product_id=product.id) }}" class="luxury-product-link">
+              <div class="luxury-image-container">
+                  <img src="{{ product.image }}" alt="{{ product.name }}" class="luxury-product-image">
+                  <div class="luxury-image-overlay"></div>
+                  <div class="luxury-quick-view">
+                      <span>View Details</span>
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
+                          <path d="M5 12H19M19 12L12 5M19 12L12 19" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                  </div>
+              </div>
+              
+              <div class="luxury-product-details">
+                  <div class="luxury-product-info">
+                      <h3 class="luxury-product-name">{{ product.name }}</h3>
+                      <div class="luxury-price-container">
+                          <span class="luxury-product-price">${{ "%.2f"|format(product.price / 100) }}</span>
+                      </div>
+                  </div>
+                  <button class="luxury-add-to-cart">
+                      <span>Add to Cart</span>
+                      <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+                          <path d="M2.5 3.33334H3.00526C3.85578 3.33334 4.56986 3.97376 4.6621 4.81926L5.3379 11.0141C5.43014 11.8596 6.14422 12.5 6.99474 12.5H14.205C14.9669 12.5 15.6317 11.9834 15.82 11.2452L16.9699 6.73593C17.2387 5.68213 16.4425 4.65704 15.355 4.65704H5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+                          <path d="M12.5 16.6667C12.5 17.1269 12.1269 17.5 11.6667 17.5C11.2064 17.5 10.8333 17.1269 10.8333 16.6667C10.8333 16.2064 11.2064 15.8333 11.6667 15.8333C12.1269 15.8333 12.5 16.2064 12.5 16.6667Z" stroke="currentColor" stroke-width="1.5"/>
+                          <path d="M7.5 16.6667C7.5 17.1269 7.12687 17.5 6.66666 17.5C6.20646 17.5 5.83333 17.1269 5.83333 16.6667C5.83333 16.2064 6.20646 15.8333 6.66666 15.8333C7.12687 15.8333 7.5 16.2064 7.5 16.6667Z" stroke="currentColor" stroke-width="1.5"/>
+                      </svg>
+                  </button>
+              </div>
+          </a>
+      </div>
+      {% endfor %}
+  </div>
+</section>
+
+             <!--==shopping-banner===============-->
+    <section id="shopping-banner">
+        <div class="shopping-banner-container">
+            <div class="shopping-banner-text">
+                <strong>Collection</strong>
+                <h3>Stylish Bag and Shoes</h3>
+                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis consequuntur, obcaecati hic sunt nisi,</p>
+                <a href="#">Shop Now</a>
+            </div>
+            <div class="shopping-banner-img">
+                <img alt="" src="../static/images/poster-3.png">
+            </div>
+        </div>
+    </section>
+
+      
+      <!-- Feature Section -->
+      <div class="feature-section">
+          <div>
+              <i class="fas fa-sync"></i>
+              <p class="title">Easy Exchange Policy</p>
+              <p class="description">We offer hassle-free exchange policy</p>
+          </div>
+          <div>
+              <i class="fas fa-ticket-alt"></i>
+              <p class="title">7 Days Return Policy</p>
+              <p class="description">We provide 7 Days free return policy</p>
+          </div>
+          <div>
+              <i class="fas fa-headset"></i>
+              <p class="title">Best Customer Support</p>
+              <p class="description">We provide 24/7 customer support</p>
+          </div>
+      </div>
+      
+<!-- Subscription Section -->
+<div class="subscription-section">
+    <p class="heading">Subscribe now & get 20% off</p>
+    <p class="subtext">Lorem ipsum dolor sit amet consectetur adipisicing elit. Dicta, id.</p>
+
+    <form action="">
+        <input type="email" placeholder="Enter your Email">
+        <button type="submit">SUBSCRIBE</button>
+    </form>
+</div>
+
+
+
+{% endblock %}
